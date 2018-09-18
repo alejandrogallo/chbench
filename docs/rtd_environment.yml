@@ -1,0 +1,8 @@
+name: py36
+channels:
+  - defaults
+dependencies:
+  - python=3.6
+  - pip:
+      - better-apidoc
+

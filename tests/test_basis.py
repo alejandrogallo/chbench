@@ -15,6 +15,9 @@ def test_simple_gaussian():
     assert(newp.beta == 2.0)
     assert(abs(p(1, 0, 1) - 0.670320046035639) < 1e-5)
     assert(abs(newp(1, 0, 1) - 2 * 0.670320046035639) < 1e-5)
+    assert(newp.translate([1, 1, 1]).center[0] == 1)
+    assert(newp.translate([1, 1, 1]).center[1] == 1)
+    assert(newp.translate([1, 1, 1]).center[2] == 1)
 
     d = GaussianOrbital(0.01, 0.8, 0.0, 0, 2, 0, center)
 

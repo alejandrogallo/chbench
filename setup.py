@@ -18,7 +18,9 @@ def get_version(filename):
 with open('README.rst') as readme_file:
     readme = readme_file.read()
 
-requirements = ['Click']
+requirements = [
+    'numpy',
+]
 
 dev_requirements = [
     'coverage', 'pytest', 'pytest-cov', 'pytest-xdist', 'twine', 'pep8',
@@ -40,11 +42,11 @@ setup(
         'Programming Language :: Python :: 3.6',
     ],
     description="Chemistry Bench",
-    entry_points=dict(
-        console_scripts=[
-            'chbench=chbench:main'
-        ]
-    ),
+    # entry_points=dict(
+        # console_scripts=[
+            # 'chbench=chbench:main'
+        # ]
+    # ),
     install_requires=requirements,
     extras_require={
         'dev': dev_requirements,

@@ -21,36 +21,3 @@ ChBench
 Chemistry Bench
 
 Development of ChBench happens on `Github`_.
-
-
-Installation
-------------
-To install the latest released version of ChBench, run this command in your terminal:
-
-.. code-block:: console
-
-    $ pip install chbench
-
-This is the preferred method to install ChBench, as it will always install the most recent stable release.
-
-If you don't have `pip`_ installed, this `Python installation guide`_ can guide
-you through the process.
-
-.. _pip: https://pip.pypa.io
-.. _Python installation guide: http://docs.python-guide.org/en/latest/starting/installation/
-
-
-To install the latest development version of ChBench from `Github`_.
-
-.. code-block:: console
-
-    $ pip install git+https://github.com/alejandrogallo/chbench.git@master#egg=chbench
-
-.. _Github: https://github.com/alejandrogallo/chbench
-
-Usage
------
-
-To use ChBench in a project::
-
-    import chbench

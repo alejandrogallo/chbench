@@ -10,6 +10,6 @@ install:
   - pip install coveralls
 
 script:
-  - py.test --doctest-modules --cov=chbench src tests
+  - py.test --doctest-modules --cov=src/chbench src tests
 after_success:
   - coveralls

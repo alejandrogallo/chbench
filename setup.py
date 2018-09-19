@@ -20,7 +20,8 @@ with open('README.rst') as readme_file:
 
 requirements = [
     'numpy',
-    'matplotlib'
+    'matplotlib',
+    'ase',
 ]
 
 dev_requirements = [

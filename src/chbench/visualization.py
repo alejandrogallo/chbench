@@ -22,6 +22,7 @@ def plot_gaussian_with_surface_xy(xrange, yrange, nx, ny, gaussian, z=0, **kwarg
     ax.contour(X, Y, Z, offset=-1)
     return fig
 
+
 def contour3d(xrange, yrange, zrange, nx, ny, nz, gaussian, **kwargs):
     from mayavi import mlab
     x = np.linspace(*xrange + [nx])
@@ -32,3 +33,17 @@ def contour3d(xrange, yrange, zrange, nx, ny, nz, gaussian, **kwargs):
     # TODO: implement contour3d with XYZ
     #s = mlab.contour3d(X, Y, Z, f, contours=3, transparent=True)
     return mlab.contour3d(f, contours=5, transparent=True)
+
+
+def plot_atoms_mayavi(atoms, **kwargs):
+    # docs.enthought.com/mayavi/mayavi/auto/
+    # mlab_helper_functions.html#mayavi.mlab.points3d
+    from mayavi import mlab
+    from ase.data import covalent_radii
+    x = [a.position[0] for a in atoms]
+    y = [a.position[1] for a in atoms]
+    z = [a.position[2] for a in atoms]
+    r = [covalent_radii[a.number] for a in atoms]
+    pts = mlab.points3d(x, y, z, **kwargs)
+    pts.mlab_source.dataset.point_data.scalars = r
+    return pts

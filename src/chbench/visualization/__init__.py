@@ -2,15 +2,23 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-def plot_gaussian_xy(xrange, yrange, nx, ny, gaussian, z=0, **kwargs):
+def plot_gaussian_xy(
+        xrange, yrange, nx, ny, gaussian, z=0, fill=False, **kwargs
+        ):
     x = np.linspace(*xrange + [nx])
     y = np.linspace(*yrange + [ny])
     X, Y = np.meshgrid(x, y)
     Z = gaussian(X, Y, X * 0 + z)
-    return plt.contour(X, Y, Z, **kwargs)
+    if fill:
+        return plt.contourf(X, Y, Z, **kwargs)
+    else:
+        return plt.contour(X, Y, Z, **kwargs)
 
 
-def plot_gaussian_with_surface_xy(xrange, yrange, nx, ny, gaussian, z=0, **kwargs):
+
+def plot_gaussian_with_surface_xy(
+        xrange, yrange, nx, ny, gaussian, z=0, fill=False, **kwargs
+        ):
     from mpl_toolkits.mplot3d import axes3d
     x = np.linspace(*xrange + [nx])
     y = np.linspace(*yrange + [ny])
@@ -19,8 +27,10 @@ def plot_gaussian_with_surface_xy(xrange, yrange, nx, ny, gaussian, z=0, **kwarg
     fig = plt.figure()
     ax = fig.add_subplot(111, projection="3d")
     ax.plot_surface(X, Y, Z, alpha=0.5, rstride=1, cstride=1, cmap='autumn_r')
-    ax.contour(X, Y, Z, offset=-1)
-    return fig
+    if fill:
+        return ax.contourf(X, Y, Z, offset=-1, **kwargs)
+    else:
+        return ax.contour(X, Y, Z, offset=-1, **kwargs)
 
 
 def contour3d(xrange, yrange, zrange, nx, ny, nz, gaussian, **kwargs):

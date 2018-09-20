@@ -45,6 +45,8 @@ X = np.linspace(xlims[0], xlims[1], N * nx)
 plt.plot(X, modulator(X, ki), 'r')
 #plt.clabel(surface)
 
+plt.title(r'$k = \frac{{2\pi {k}}}{{aN}}$'.format(k=ki))
+
 
 
 plt.show()

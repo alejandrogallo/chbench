@@ -66,3 +66,7 @@ class ContractedGaussian:
             (g[0] * g[1])(X,Y,Z)
             for g in zip(self.gaussians, self.coefficients)
         )
+
+    def translate(self, newcenter):
+        assert len(newcenter) == 3, 'Length of translation vec. has to be 3'
+        self.gaussians = [g.translate(newcenter) for g in self.gaussians]

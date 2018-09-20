@@ -36,7 +36,7 @@ class GaussianOrbital:
     def __add__(self, other):
         if isinstance(other, ContractedGaussian):
             gaussians = [self.copy()] + other.gaussians
-            coefficients = [1] + other.coefficients
+            coefficients = [1] + list(other.coefficients)
         elif isinstance(other, GaussianOrbital):
             gaussians = [self.copy(), other.copy()]
             coefficients = [1, 1]
@@ -58,7 +58,7 @@ class ContractedGaussian:
 
     def __init__(self, coefficients, gaussians):
         assert(len(gaussians) == len(coefficients))
-        self.coefficients = coefficients
+        self.coefficients = np.array(coefficients)
         self.gaussians = gaussians
 
     def __call__(self, X, Y, Z):
@@ -66,6 +66,17 @@ class ContractedGaussian:
             (g[0] * g[1])(X,Y,Z)
             for g in zip(self.gaussians, self.coefficients)
         )
+
+    def __mul__(self, beta):
+        coefficients = beta * np.array(self.coefficients)
+        g = self.copy()
+        g.coefficients = coefficients
+        return g
+
+    def copy(self):
+        gaussians = [g.copy() for g in self.gaussians]
+        cs = self.coefficients
+        return ContractedGaussian(cs, gaussians)
 
     def translate(self, newcenter):
         assert len(newcenter) == 3, 'Length of translation vec. has to be 3'

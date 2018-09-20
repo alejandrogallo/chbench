@@ -1,3 +1,4 @@
+import numpy as np
 from chbench.basis import *
 
 
@@ -46,10 +47,14 @@ def test_simple_cgaussian():
 
     g = ContractedGaussian([2, 3], [s, p])
     assert(g.gaussians)
-    assert(g.coefficients)
+    assert(g.coefficients is not None)
     assert(g(0, 0, 0) == 2.0)
 
     gg = p * 32 + g
     assert(isinstance(gg, ContractedGaussian))
     assert(gg.gaussians[0].lx == 1.0)
     assert(gg.gaussians[0].beta == 32.0)
+
+    assert(2.0 == gg(0, 0, 0))
+    doublegg  = gg * np.complex(0, 1)
+    assert(np.complex(0, 2.0) == doublegg(0, 0, 0))

@@ -58,3 +58,10 @@ def test_simple_cgaussian():
     assert(2.0 == gg(0, 0, 0))
     doublegg  = gg * np.complex(0, 1)
     assert(np.complex(0, 2.0) == doublegg(0, 0, 0))
+
+    dcontracted = ContractedGaussian(
+        [1, 1],
+        [gg, gg]
+    )
+    assert(dcontracted)
+    assert(dcontracted(0,0,0) == 4.0)

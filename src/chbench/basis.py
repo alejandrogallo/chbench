@@ -80,4 +80,6 @@ class ContractedGaussian:
 
     def translate(self, newcenter):
         assert len(newcenter) == 3, 'Length of translation vec. has to be 3'
-        self.gaussians = [g.translate(newcenter) for g in self.gaussians]
+        g = self.copy()
+        g.gaussians = [g.translate(newcenter) for g in self.gaussians]
+        return g

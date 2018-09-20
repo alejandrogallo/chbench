@@ -10,5 +10,5 @@ benzenepath = os.path.join(
 )
 atoms = ase.io.read(benzenepath)
 
-plot_atoms_mayavi(atoms, resolution=10)
+plot_atoms_mayavi(atoms, resolution=100, mode='cube')
 mlab.show()

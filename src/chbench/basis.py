@@ -21,49 +21,39 @@ class LinearSuperposition:
         g.coefficients = coefficients
         return g
 
-    def copy(self):
-        functions = [g.copy() for g in self.functions]
-        return ContractedGaussian(self.coefficients, functions)
-
-
-class Orbital:
-
-    def __init__(self):
-        # This is a constant so that we can multiply by scalars
-        self.beta = 1.0
-
-    def __call__(self, x, y, z):
-        raise NotImplementedError
-
-    def copy(self):
-        raise NotImplementedError
-
-    def __mul__(self, beta):
-        """
-        Multiplication by a scalar on the right
-        """
-        new = self.copy()
-        new.beta *= beta
-        return new
-
     def __rmul__(self, beta):
         """
         Multiplication by a scalar on the left
         """
-        new = self.copy()
-        new.beta *= beta
-        return new
+        return self * beta
+
+    def __radd__(self, other):
+        return self + other
 
     def __add__(self, other):
         if isinstance(other, LinearSuperposition):
-            functions = [self.copy()] + other.functions
-            coefficients = [1] + list(other.coefficients)
-        elif isinstance(other, Orbital):
-            functions = [self.copy(), other.copy()]
-            coefficients = [1, 1]
+            functions = list(self.functions) + list(other.functions)
+            coefficients = list(self.coefficients) + list(other.coefficients)
         else:
-            raise NotImplementedError('This operation is not implemented')
-        return ContractedGaussian(coefficients, functions)
+            raise NotImplementedError(
+                'To sum {0} and {0} is not yet implemented'.format(
+                    type(other), type(self)
+                )
+            )
+        return LinearSuperposition(coefficients, functions)
+
+    def copy(self):
+        functions = [g.copy() for g in self.functions]
+        return self.__class__(self.coefficients, functions)
+
+
+class Orbital(LinearSuperposition):
+
+    def __init__(self):
+        LinearSuperposition.__init__(self, [1.0], [self])
+
+    def __call__(self, x, y, z):
+        raise NotImplementedError
 
 
 class PlaneWave(Orbital):
@@ -77,7 +67,7 @@ class PlaneWave(Orbital):
         return PlaneWave(self.k)
 
     def __call__(self, x, y, z):
-        return self.beta * np.exp(
+        return self.coefficients[0] * np.exp(
             np.complex(0, 1) * (self.k[0] * x + self.k[1] * y + self.k[2] * z)
         )
 
@@ -94,14 +84,13 @@ class GaussianOrbital(Orbital):
         self.alphay = alphay
         self.alphaz = alphaz
         self.center = center
-        self.beta = 1.0
 
     def copy(self):
         g = GaussianOrbital(
             self.alphax, self.alphay, self.alphaz,
             self.lx, self.ly, self.lz, self.center
         )
-        g.beta = self.beta
+        g.coefficients = self.coefficients
         return g
 
     def translate(self, newcenter):
@@ -111,7 +100,7 @@ class GaussianOrbital(Orbital):
         return g
 
     def __call__(self, X, Y, Z):
-        return self.beta * np.exp(
+        return self.coefficients[0] * np.exp(
             - self.alphax * (X - self.center[0]) ** 2
             - self.alphay * (Y - self.center[1]) ** 2
             - self.alphaz * (Z - self.center[2]) ** 2

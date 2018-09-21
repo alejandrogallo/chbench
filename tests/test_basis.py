@@ -6,14 +6,14 @@ def test_simple_gaussian():
     center = [0, 0, 0]
     p = GaussianOrbital(0.2, 0.2, 0.2, 1, 0, 0, center)
 
-    assert(p.beta == 1.0)
+    assert(p.coefficients == [1.0])
     assert(p.alphax == 0.2)
     assert(p.lx == 1)
     assert(abs(p(1, 0, 1) - 0.670320046035639) < 1e-5)
 
     newp = p * 2
-    assert(p.beta == 1.0)
-    assert(newp.beta == 2.0)
+    assert(p.coefficients == [1.0])
+    assert(newp.coefficients == [2.0])
     assert(abs(p(1, 0, 1) - 0.670320046035639) < 1e-5)
     assert(abs(newp(1, 0, 1) - 2 * 0.670320046035639) < 1e-5)
     assert(newp.translate([1, 1, 1]).center[0] == 1)
@@ -25,12 +25,12 @@ def test_simple_gaussian():
     pd = d * 2 + p * 3
     assert(isinstance(pd, ContractedGaussian))
     assert(pd.functions[0])
-    assert(pd.functions[0].beta == 2.0)
-    assert(pd.functions[1].beta == 3.0)
+    assert(pd.functions[0].coefficients == [2.0])
+    assert(pd.functions[1].coefficients == [3.0])
 
     newd = d.copy()
-    newd.beta = 32
-    assert(d.beta == 1.0)
+    newd.coefficients = [32]
+    assert(d.coefficients == [1.0])
 
     try:
         newd + 2
@@ -51,9 +51,10 @@ def test_simple_cgaussian():
     assert(g(0, 0, 0) == 2.0)
 
     gg = p * 32 + g
+    assert(isinstance(gg, LinearSuperposition))
     assert(isinstance(gg, ContractedGaussian))
     assert(gg.functions[0].lx == 1.0)
-    assert(gg.functions[0].beta == 32.0)
+    assert(gg.functions[0].coefficients == [32.0])
 
     assert(2.0 == gg(0, 0, 0))
     doublegg  = gg * np.complex(0, 1)
@@ -65,3 +66,19 @@ def test_simple_cgaussian():
     )
     assert(dcontracted)
     assert(dcontracted(0,0,0) == 4.0)
+
+
+def test_pw():
+    p = PlaneWave([0, 1, 0])
+    p2 = PlaneWave([1, 1, 0])
+
+    g = 2 * p
+    assert(g.coefficients == [2.0])
+    g = p * 2
+    assert(g.coefficients == [2.0])
+
+    g = p + 3 * p2
+    assert(isinstance(g, LinearSuperposition))
+    assert(not isinstance(g, ContractedGaussian))
+
+    t = g + g

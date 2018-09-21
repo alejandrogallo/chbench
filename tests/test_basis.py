@@ -23,7 +23,7 @@ def test_simple_gaussian():
     d = GaussianOrbital(0.01, 0.8, 0.0, 0, 2, 0, center)
 
     pd = d * 2 + p * 3
-    assert(isinstance(pd, ContractedGaussian))
+    assert(isinstance(pd, LinearSuperposition))
     assert(pd.functions[0])
     assert(pd.functions[0].coefficients == [2.0])
     assert(pd.functions[1].coefficients == [3.0])
@@ -52,7 +52,6 @@ def test_simple_cgaussian():
 
     gg = p * 32 + g
     assert(isinstance(gg, LinearSuperposition))
-    assert(isinstance(gg, ContractedGaussian))
     assert(gg.functions[0].lx == 1.0)
     assert(gg.functions[0].coefficients == [32.0])
 

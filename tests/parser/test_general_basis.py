@@ -68,7 +68,7 @@ def test_simple():
     assert(isinstance(p.functions[0], ContractedGaussian))
     # They all have the same \vec l
     for function in p.functions:
-        assert(len({(g.lx, g.ly, g.lz) for g in function.gaussians}) == 1)
+        assert(len({(g.lx, g.ly, g.lz) for g in function.functions}) == 1)
 
     # First d shell
     d = bs.shells[7]

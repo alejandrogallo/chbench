@@ -24,9 +24,9 @@ def test_simple_gaussian():
 
     pd = d * 2 + p * 3
     assert(isinstance(pd, ContractedGaussian))
-    assert(pd.gaussians[0])
-    assert(pd.gaussians[0].beta == 2.0)
-    assert(pd.gaussians[1].beta == 3.0)
+    assert(pd.functions[0])
+    assert(pd.functions[0].beta == 2.0)
+    assert(pd.functions[1].beta == 3.0)
 
     newd = d.copy()
     newd.beta = 32
@@ -46,14 +46,14 @@ def test_simple_cgaussian():
     p = GaussianOrbital(0.2, 0.2, 0.2, 1, 0, 0, center)
 
     g = ContractedGaussian([2, 3], [s, p])
-    assert(g.gaussians)
+    assert(g.functions)
     assert(g.coefficients is not None)
     assert(g(0, 0, 0) == 2.0)
 
     gg = p * 32 + g
     assert(isinstance(gg, ContractedGaussian))
-    assert(gg.gaussians[0].lx == 1.0)
-    assert(gg.gaussians[0].beta == 32.0)
+    assert(gg.functions[0].lx == 1.0)
+    assert(gg.functions[0].beta == 32.0)
 
     assert(2.0 == gg(0, 0, 0))
     doublegg  = gg * np.complex(0, 1)

@@ -4,16 +4,14 @@ try:
     import vispy.color
     import vispy.scene.visuals
     from vispy.visuals.transforms import STTransform
+    from vispy.scene.visuals import (
+        Axis
+    )
 except ImportError:
     print('You do not have vispy, you need to install it')
 import ase.atom
 from ase.data import covalent_radii
 import numpy as np
-
-
-from vispy.scene.visuals import (
-    Axis
-)
 
 
 def xyzaxis():
@@ -79,7 +77,6 @@ class OrbitalIsoSurface:
             scale=[xscale, yscale, zscale],
             translate=[xrange[0], yrange[0], zrange[0]]
         )
-
 
 
 class Atom(vispy.scene.visuals.Sphere):

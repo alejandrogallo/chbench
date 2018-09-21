@@ -1,12 +1,12 @@
 try:
     import vispy
+    import vispy.scene
+    import vispy.color
+    import vispy.scene.visuals
+    from vispy.visuals.transforms import STTransform
 except ImportError:
     print('You do not have vispy, you need to install it')
 import ase.atom
-import vispy.scene
-import vispy.color
-import vispy.scene.visuals
-from vispy.visuals.transforms import STTransform
 from ase.data import covalent_radii
 import numpy as np
 

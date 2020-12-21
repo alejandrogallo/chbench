@@ -20,4 +20,4 @@ ChBench
 
 Chemistry Bench
 
-Development of ChBench happens on `Github`_.
+Development of ChBench happens on `Github`__.

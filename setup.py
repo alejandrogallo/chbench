@@ -15,7 +15,7 @@ def get_version(filename):
     raise ValueError("Cannot extract version from %s" % filename)
 
 
-with open('README.rst') as readme_file:
+with open('README.org') as readme_file:
     readme = readme_file.read()
 
 requirements = [

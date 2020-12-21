@@ -3,9 +3,7 @@
   :CUSTOM_ID: chbench
   :END:
 
-[[https://travis-ci.org/alejandrogallo/chbench][[[https://img.shields.io/travis/alejandrogallo/chbench.svg]]]]
-
-[[https://coveralls.io/github/alejandrogallo/chbench?branch=master][[[https://coveralls.io/repos/github/alejandrogallo/chbench/badge.svg?branch=master]]]]
-
-[[https://www.gnu.org/licenses/gpl-3.0][[[https://img.shields.io/badge/License-GPL%20v3-green.svg]]]]
+[[https://img.shields.io/travis/alejandrogallo/chbench.svg]]
+[[https://coveralls.io/repos/github/alejandrogallo/chbench/badge.svg?branch=master]]
+[[https://img.shields.io/badge/License-GPL%20v3-green.svg]]
 

@@ -26,7 +26,7 @@ requirements = [
 
 dev_requirements = [
     'coverage', 'pytest', 'pytest-cov',
-    'flake8', 'sphinx', 'sphinx-autobuild', 'sphinx_rtd_theme']
+    'flake8']
 dev_requirements.append('better-apidoc')
 
 

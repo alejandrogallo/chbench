@@ -4,6 +4,7 @@
   :END:
 
 [[https://img.shields.io/travis/alejandrogallo/chbench.svg]]
+[[https://github.com/papis/papis/workflows/CI/badge.svg]]
 [[https://coveralls.io/repos/github/alejandrogallo/chbench/badge.svg?branch=master]]
 [[https://img.shields.io/badge/License-GPL%20v3-green.svg]]
 
